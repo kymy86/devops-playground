@@ -1,0 +1,4 @@
+.ignoreme
+node_modules
+.env
+very_specific_environment_file_or_folder

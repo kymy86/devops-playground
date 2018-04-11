@@ -1,0 +1,19 @@
+image: node:latest
+pipelines:
+ branches:
+  master:
+   - step:
+      script:
+      - ssh-keyscan $HOST >> ~/.ssh/known_hosts
+      - echo $PRIVATE_KEY > ~/.ssh/id_rsa.tmp
+      - base64 -d ~/.ssh/id_rsa.tmp > ~/.ssh/id_rsa
+      - chmod 400 ~/.ssh/id_rsa
+      - sh bin/deploy.sh
+  dev:
+    - step:
+       script:
+        - ssh-keyscan $HOST >> ~/.ssh/known_hosts
+        - echo $PRIVATE_KEY > ~/.ssh/id_rsa.tmp
+        - base64 -d ~/.ssh/id_rsa.tmp > ~/.ssh/id_rsa
+        - chmod 400 ~/.ssh/id_rsa
+        - sh bin/deploy.sh

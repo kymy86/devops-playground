@@ -1,0 +1,35 @@
+version: "3"
+volumes:
+  mysql-data:
+    driver: local
+
+services:
+  mysqldb:
+    restart: always
+    image: mariadb:latest
+    env_file: .env
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./database/:/docker-entrypoint-initdb.d
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysqldb:db
+    ports:
+      - "8081:80"
+    environment:
+      - PMA_HOST=${MYSQL_HOST}
+      - PMA_USER=${MYSQL_USER}
+      - PMA_PASSWORD=${MYSQL_PASSWORD}
+  wordpress:
+    restart: always
+    build: .
+    volumes:
+      - ./:/var/www/html
+    env_file: .env
+    links:
+      - mysqldb:mysqldb
+    ports:
+      - "8080:80"
+
+

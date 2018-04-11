@@ -1,0 +1,17 @@
+image: python:3.5.1
+pipelines:
+  branches:
+    develop:
+      - step:
+          script:
+            - apt-get update
+            - apt-get -qq install git
+            - apt-get -qq install git-ftp
+            - python deploy.py
+    master:
+      - step:
+          script:
+            - apt-get update
+            - apt-get -qq install git
+            - apt-get -qq install git-ftp
+            - python deploy.py
