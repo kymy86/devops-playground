@@ -33,7 +33,7 @@ tar -czf dist.tar.gz ./*
 #copy the deployment bundle
 scp -i $USER_KEY_PATH -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o GlobalKnownHostsFile=/dev/null -P$PORT dist.tar.gz $SSH_USER@$HOST:$DESTINATION_PATH
 
-#unpuck the deployment bundle and deploy the new files
+#unpack the deployment bundle and deploy the new files
 ssh -i $USER_KEY_PATH -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o GlobalKnownHostsFile=/dev/null -p$PORT $SSH_USER@$HOST << EOF
     cd $DESTINATION_PATH
     tar -xvf dist.tar.gz --overwrite 
